@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var kd_brg = $("#kd_brg").val();
+            var nm_brg = $("#nm_brg").val();
+            var stok = $("#stok").val();
+            var dataString = "kd_brg=" + kd_brg + "&nm_brg=" + nm_brg + "&stok=" + stok + "&insert=";
+            if ($.trim(kd_brg).length > 0 & $.trim(nm_brg).length > 0 & $.trim(stok).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://penjualan.multielektronik.online/insert-barang.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <h1 class="title">Input Barang</h1>
+        <a class="button button-clear" href="readjson-barang.html">View Barang</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>KODE BARANG</label>
+            <input type="text" id="kd_brg" value="" />
+        </div>
+        <div class="item">
+            <label>NAMA BARANG</label>
+            <input type="text" id="nm_brg" value="" />
+        </div>
+        <div class="item">
+            <label>STOK</label>
+            <input type="text" id="stok" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Input" />
+        </div>
+    </div>
+</body>
+
+</html>
