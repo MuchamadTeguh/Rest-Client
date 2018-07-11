@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var kd_cus = $("#kd_cus").val();
+            var nm_cus = $("#nm_cus").val();
+            var alamat_cus = $("#alamat_cus").val();
+            var dataString = "kd_cus=" + kd_cus + "&nm_cus=" + nm_cus + "&alamat_cus=" + alamat_cus + "&insert=";
+            if ($.trim(kd_cus).length > 0 & $.trim(nm_cus).length > 0 & $.trim(alamat_cus).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://penjualan.multielektronik.online/insert-customer.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://penjualan.multielektronik.online">PENJUALAN</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active">
+      <li><a href="http://penjualan.multielektronik.online/pegawai.html">Pegawai</a></li>
+      <li><a href="http://penjualan.multielektronik.online/customer.html">Customer</a></li>
+      <li><a href="http://penjualan.multielektronik.online/barang.html">Barang</a></li>
+	  
+	  
+	  
+    </ul>
+	
+	<ul class="nav navbar-nav navbar-right">
+      <li><a href="http://penjualan.multielektronik.online/readjson-customer.html"></span>View Customer</a></li>
+	  <li><a href="http://penjualan.multielektronik.online"></span>Kembali</a></li>
+      </ul>
+	  
+	  
+	  
+  </div>
+</nav>
+	
+	
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>KODE CUSTOMER</label>
+            <input type="text" id="kd_cus" value="" />
+        </div>
+        <div class="item">
+            <label>NAMA CUSTOMER</label>
+            <input type="text" id="nm_cus" value="" />
+        </div>
+        <div class="item">
+            <label>ALAMAT CUSTOMER</label>
+            <input type="text" id="alamat_cus" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Input" />
+        </div>
+    </div>
+</body>
+
+</html>
+    

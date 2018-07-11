@@ -1,0 +1,123 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var id = decodeURI(getUrlVars()["id"]);
+        var kd_cus = decodeURI(getUrlVars()["kd_cus"]);
+        var nm_cus = decodeURI(getUrlVars()["nm_cus"]);
+        var alamat_cus = decodeURI(getUrlVars()["alamat_cus"]);
+        $("#id").val(id);
+        $("#kd_cus").val(kd_cus);
+        $("#nm_cus").val(nm_cus);
+        $("#alamat_cus").val(alamat_cus);
+        $("#update").click(function() {
+            var id = $("#id").val();
+            var kd_cus = $("#kd_cus").val();
+            var nm_cus = $("#nm_cus").val();
+            var alamat_cus = $("#alamat_cus").val();
+            var dataString = "id=" + id + "&kd_cus=" + kd_cus + "&nm_cus=" + nm_cus + "&alamat_cus=" + alamat_cus + "&update=";
+            $.ajax({
+                type: "POST",
+                url: "http://penjualan.multielektronik.online/update-customer.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var id = $("#id").val();
+            var dataString = "id=" + id + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "http://penjualan.multielektronik.online/delete-customer.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://penjualan.multielektronik.online">PENJUALAN</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active">
+      <li><a href="http://penjualan.multielektronik.online/pegawai.html">Pegawai</a></li>
+      <li><a href="http://penjualan.multielektronik.online/customer.html">Customer</a></li>
+      <li><a href="http://penjualan.multielektronik.online/barang.html">Barang</a></li>
+    </ul>
+	
+	
+	<ul class="nav navbar-nav navbar-right">
+      <li><a href="http://penjualan.multielektronik.online/readjson-customer.html"></span>View Customer</a></li>
+      </ul>
+	
+	
+  </div>
+</nav>
+
+
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>KODE CUSTOMER</label>
+            <input type="text" id="kd_cus" value="" />
+        </div>
+        <div class="item">
+            <label>NAMA CUSTOMER</label>
+            <input type="text" id="nm_cus" value="" />
+        </div>
+        <div class="item">
+            <label>ALAMAT CUSTOMER</label>
+            <input type="text" id="alamat_cus" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update" />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>
