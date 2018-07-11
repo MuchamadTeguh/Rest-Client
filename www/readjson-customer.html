@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "https://penjualan.multielektronik.online/json-customer.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var kd_cus = field.kd_cus;
+                var nm_cus = field.nm_cus;
+                var alamat_cus = field.alamat_cus;
+                $("#listview").append("<a class='item' href='form-customer.html?id=" + id + "&kd_cus=" + kd_cus + "&nm_cus=" + nm_cus + "&alamat_cus=" + alamat_cus + "'><span class='item-note'>$" + alamat_cus + "</span><h2>" + kd_cus + " </h2><p>" + nm_cus + "</p></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">PENJUALAN</a>
+    </div>
+    <ul class="nav navbar-nav">
+	  <li class="active">
+      <li><a href="pegawai.html">Pegawai</a></li>
+      <li><a href="customer.html">Customer</a></li>
+      <li><a href="barang.html">Barang</a></li>
+	  
+	  
+	  
+    </ul>
+	
+	
+	<ul class="nav navbar-nav navbar-right">
+	  <li><a href="customer.html"></span>Kembali</a></li>
+      </ul>
+	
+	
+
+  </div>
+</nav>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>

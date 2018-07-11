@@ -1,0 +1,122 @@
+    <html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    
+    
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var id = decodeURI(getUrlVars()["id"]);
+        var kd_pgw = decodeURI(getUrlVars()["kd_pgw"]);
+        var nm_pgw = decodeURI(getUrlVars()["nm_pgw"]);
+        var bagian = decodeURI(getUrlVars()["bagian"]);
+        $("#id").val(id);
+        $("#kd_pgw").val(kd_pgw);
+        $("#nm_pgw").val(nm_pgw);
+        $("#bagian").val(bagian);
+        $("#update").click(function() {
+            var id = $("#id").val();
+            var kd_pgw = $("#kd_pgw").val();
+            var nm_pgw = $("#nm_pgw").val();
+            var bagian = $("#bagian").val();
+            var dataString = "id=" + id + "&kd_pgw=" + kd_pgw + "&nm_pgw=" + nm_pgw + "&bagian=" + bagian + "&update=";
+            $.ajax({
+                type: "POST",
+                url: "https://penjualan.multielektronik.online/update-pegawai.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var id = $("#id").val();
+            var dataString = "id=" + id + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "https://penjualan.multielektronik.online/delete-pegawai.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+        <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">PENJUALAN</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active">
+      <li><a href="pegawai.html">Pegawai</a></li>
+      <li><a href="customer.html">Customer</a></li>
+      <li><a href="barang.html">Barang</a></li>
+    </ul>
+	
+	
+	<ul class="nav navbar-nav navbar-right">
+      <li><a href="readjson-pegawai.html"></span>View Pegawai</a></li>
+      </ul>
+	
+	
+  </div>
+</nav>
+    
+    
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>KODE PEGAWAI</label>
+            <input type="text" id="kd_pgw" value="" />
+        </div>
+        <div class="item">
+            <label>NAMA PEGAWAI</label>
+            <input type="text" id="nm_pgw" value="" />
+        </div>
+        <div class="item">
+            <label>BAGIAN</label>
+            <input type="text" id="bagian" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update" />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>
